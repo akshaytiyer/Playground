@@ -25,6 +25,12 @@ const variants = {
   },
 };
 
+const sizes = {
+  Small: 'h-9 px-4 py-2 text-sm',
+  Medium: 'h-12 px-6 py-3 text-base',
+  Large: 'h-14 px-8 py-4 text-lg',
+};
+
 /**
  * Button from Figma design system.
  * Use `state` to force a visual state in Storybook (Hover/Pressed/Focused).
@@ -32,6 +38,7 @@ const variants = {
  */
 export function Button({
   variant = 'Primary',
+  size = 'Medium',
   state = 'Default',
   label = 'Button',
   className = '',
@@ -39,6 +46,7 @@ export function Button({
   ...props
 }) {
   const styles = variants[variant] ?? variants.Primary;
+  const sizeStyles = sizes[size] ?? sizes.Medium;
   const appearance =
     state && state !== 'Default' ? styles[state] : styles.interactive;
 
@@ -46,7 +54,8 @@ export function Button({
     <button
       type={type}
       className={[
-        "inline-flex h-12 items-center justify-center rounded-lg px-6 py-3 font-['Inter',system-ui,sans-serif] text-base font-semibold whitespace-nowrap transition-colors",
+        "inline-flex items-center justify-center rounded-lg font-['Inter',system-ui,sans-serif] font-semibold whitespace-nowrap transition-colors",
+        sizeStyles,
         appearance,
         className,
       ]

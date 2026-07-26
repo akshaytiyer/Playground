@@ -3,15 +3,23 @@ import { fn } from 'storybook/test';
 import { Button } from './Button';
 
 const variants = ['Primary', 'Secondary', 'Tertiary'];
+const sizes = ['Small', 'Medium', 'Large'];
 const states = ['Default', 'Hover', 'Pressed', 'Focused'];
 
 export default {
-  title: 'Atoms/Button',
+  title: 'Components/Button',
   component: Button,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Shared Button atom from Figma. Configure with variant (Primary / Secondary / Tertiary), size (Small / Medium / Large), and optional forced state for docs.',
+      },
+    },
   },
-  tags: ['autodocs'],
+  // Custom docs live in Button.mdx — disable generated autodocs
+  tags: ['!autodocs'],
   argTypes: {
     variant: {
       name: 'Variant',
@@ -21,6 +29,16 @@ export default {
       table: {
         type: { summary: "'Primary' | 'Secondary' | 'Tertiary'" },
         defaultValue: { summary: 'Primary' },
+      },
+    },
+    size: {
+      name: 'Size',
+      control: 'select',
+      options: sizes,
+      description: 'Button size from Figma: Small, Medium, or Large',
+      table: {
+        type: { summary: "'Small' | 'Medium' | 'Large'" },
+        defaultValue: { summary: 'Medium' },
       },
     },
     state: {
@@ -62,45 +80,61 @@ export default {
     onClick: fn(),
     label: 'Button',
     variant: 'Primary',
+    size: 'Medium',
     state: 'Default',
     type: 'button',
   },
 };
 
-export const Primary = {
+export const Small = {
   args: {
-    variant: 'Primary',
+    size: 'Small',
     label: 'Button',
   },
 };
 
-export const Secondary = {
+export const Medium = {
   args: {
-    variant: 'Secondary',
+    size: 'Medium',
     label: 'Button',
   },
 };
 
-export const Tertiary = {
+export const Large = {
   args: {
-    variant: 'Tertiary',
+    size: 'Large',
     label: 'Button',
   },
 };
 
-/** Full Figma matrix: type × state */
+/** Full Figma matrix: size × variant × state */
 export const AllVariants = {
   parameters: {
     controls: { disable: true },
     layout: 'padded',
   },
   render: () => (
-    <div className="flex flex-col gap-6 bg-[#2b2b2b] p-8">
-      {variants.map((variant) => (
-        <div key={variant} className="flex items-center gap-4">
-          {states.map((state) => (
-            <Button key={state} variant={variant} state={state} label="Button" />
-          ))}
+    <div className="flex flex-col gap-10 bg-[#2b2b2b] p-8">
+      {sizes.map((size) => (
+        <div key={size} className="flex flex-col gap-3">
+          <p className="font-['Inter',system-ui,sans-serif] text-sm font-semibold text-white/70">
+            {size}
+          </p>
+          <div className="flex flex-col gap-4">
+            {variants.map((variant) => (
+              <div key={variant} className="flex items-center gap-4">
+                {states.map((state) => (
+                  <Button
+                    key={state}
+                    variant={variant}
+                    size={size}
+                    state={state}
+                    label="Button"
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>

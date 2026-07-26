@@ -1,0 +1,63 @@
+import { Meta, Canvas, Controls, Markdown } from '@storybook/addon-docs/blocks';
+
+import * as ButtonStories from './Button.stories';
+import Documentation from '../../../docs/components/Button.md?raw';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The shared call-to-action atom for Playground. One component, configured with props — matching the Figma Button (Type × Size × State).
+
+Use the controls below to try **Variant** (Primary / Secondary / Tertiary), **Size**, and **State**.
+
+<Canvas of={ButtonStories.Medium} sourceState="shown" />
+<Controls of={ButtonStories.Medium} />
+
+## Sizes
+
+Stories are organized by size. Change **Variant** in Controls on any of these.
+
+### Small
+
+Compact UI: toolbars, dense tables, inline forms.
+
+<Canvas of={ButtonStories.Small} />
+
+### Medium
+
+Default for most product surfaces.
+
+<Canvas of={ButtonStories.Medium} />
+
+### Large
+
+High-emphasis CTAs and marketing-style actions.
+
+<Canvas of={ButtonStories.Large} />
+
+## Variants
+
+- **Primary** — The main action on a screen or section (Save, Pay, Continue)
+- **Secondary** — Alternative action next to Primary (Cancel)
+- **Tertiary** — Quiet supporting actions (Learn more)
+
+```jsx
+import { Button } from '../components/Button/Button';
+
+<Button variant="Primary" size="Medium" label="Pay now" onClick={handlePay} />
+<Button variant="Secondary" size="Medium" label="Cancel" />
+<Button variant="Tertiary" size="Medium" label="Learn more" />
+```
+
+## Full Figma matrix
+
+All size × variant × state combinations for visual QA and Chromatic.
+
+<Canvas of={ButtonStories.AllVariants} />
+
+## Full usage guide
+
+Detailed API, do’s and don’ts, accessibility, and anti-patterns:
+
+<Markdown>{Documentation}</Markdown>
